@@ -58,7 +58,7 @@ const addTableData = async (req, res) => {
 const updateTableData = async (req, res) => {
   try {
     const { firstName, lastName, userId } = req.body;
-    const tableDataObjId = req.params.dataObjId;
+    const tableDataObjId = req.params.tableId;
     if (!firstName || !lastName || !userId) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -86,4 +86,24 @@ const updateTableData = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, getUser, addTableData, updateTableData };
+const getTableDataBuUserId = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const tableObj = await TableData.findOne({ userId: userId });
+    if (tableObj) {
+      return res.status(201).json(tableObj);
+    } else {
+      return res.status(404).json({ error: "user not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+module.exports = {
+  registerUser,
+  getUser,
+  addTableData,
+  updateTableData,
+  getTableDataBuUserId,
+};

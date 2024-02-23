@@ -5,12 +5,16 @@ const {
   getUser,
   addTableData,
   updateTableData,
+  getTableDataBuUserId,
 } = require("../controller/index");
 
+// user routes
+router.post("/user", registerUser);
+router.get("/user/:userId", getUser);
 
-router.post("/user-signup", registerUser);
-router.get("/fetchuserbyid/:userId", getUser);
-router.post("/add-tabledata", addTableData);
-router.patch("/update-tabledata/:dataObjId", updateTableData);
+//table data routes
+router.post("/tabledata", addTableData);
+router.patch("/tabledata/:tableId", updateTableData);
+router.get("/tabledata/:userId", getTableDataBuUserId);
 
 module.exports = router;
