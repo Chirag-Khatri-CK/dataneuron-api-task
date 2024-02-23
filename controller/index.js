@@ -24,7 +24,10 @@ const getUser = async (req, res) => {
   try {
     const userObj = await User.findById(userId);
     if (userObj) {
-    return res.status(201).json(userObj);
+      userObj.addApiCount = 0;
+      userObj.updateApiCount = 0;
+      await userObj.save();
+      return res.status(201).json(userObj);
     } else {
       return res.status(404).json({ error: "user not found" });
     }

@@ -11,9 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cors({
+  origin: ['http://localhost:3000'], // Update with your frontend URL
   credentials: true,
-  origin: '*',
-  optionsSuccessStatus: 200
 }));
 
 const PORT = process.env.PORT || 3000;
@@ -27,3 +26,4 @@ connectDB()
   });
 
 app.use("/api", require("./routes/index"));
+
