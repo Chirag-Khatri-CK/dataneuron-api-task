@@ -3,13 +3,13 @@ const TableData = require("../db/models/TableData");
 
 const registerUser = async (req, res) => {
   try {
-    const { userName } = req.body;
-    if (!userName) {
+    const { username } = req.body;
+    if (!username) {
       return { error: "All fields are required" };
     }
     // Create a new user
     const newUser = new User({
-      userName,
+      username,
     });
     await newUser.save();
     return res.status(201).json(newUser);

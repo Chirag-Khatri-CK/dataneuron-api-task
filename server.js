@@ -7,15 +7,13 @@ const cors = require("cors");
 dotenv.config();
 
 const app = express();
+app.use(cors({}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-app.use(cors({
-  origin: ['http://localhost:3000'], // Update with your frontend URL
-  credentials: true,
-}));
 
 const PORT = process.env.PORT || 3000;
+app.use("/api", require("./routes/index"));
 
 connectDB()
   .then(() => {
@@ -24,6 +22,4 @@ connectDB()
   .catch((err) => {
     console.log("Mongo Db connection failed", err);
   });
-
-app.use("/api", require("./routes/index"));
 
